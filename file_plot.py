@@ -29,9 +29,7 @@ def read_json(directory, filename, metric='psnr', comparison_metric='bpp'):
                 "xs": results[comparison_metric],
                 "ys": results[metric],
             }
-            # print(values)
         return(var)
-
 
 
 directory = "D:/CompressAI/results/kodak/"
@@ -47,14 +45,7 @@ for filename in os.listdir(directory):
             curve_dict_ys = {values['name']: values['ys']}
             dict_ys.update(curve_dict_ys)
 
-# for bitrate, psnr in read_json(directory, filename):
-#     plt.plot(bitrate, psnr, color='skyblue')
-#     plt.title('Lossy')
-#     plt.xlabel('Bitrate')
-#     plt.ylabel('PSNR')
-#     plt.show()
-#     plt.savefig(current_dir + '/results/lossy.png')
-#     plt.clf()
+
 import pandas as pd
 df1 = pd.DataFrame.from_dict(dict_xs, orient='index')
 df2 = pd.DataFrame.from_dict(dict_ys, orient='index')
@@ -62,19 +53,9 @@ df1 = df1.transpose()
 df2 = df2.transpose()
 df_name = df1.columns
 xs = df1[:].values
-# ys = df2.to_string(header=False)
 ys = df2[:].values
 print(xs)
 print(ys)
-
-# print(df1.head(), df2.head())
-# linestyle = "--"
-#
-# plt.plot(xs, ys)
-# plt.title('Lossy')
-# plt.xlabel('Bitrate')
-# plt.ylabel('PSNR')
-# plt.show()
 
 linestyle = "-"
 figsize = (9, 6)
