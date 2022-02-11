@@ -56,7 +56,10 @@ ax.plot(
 
 ax.set_xlabel("Bit-rate [bpp]")
 ax.set_ylabel('psnr')
-ax.grid()
+major_ticks = np.arange(0, 5, 0.5)
+minor_ticks = np.arange(0, 5, 0.25)
+ax.set_xticks(major_ticks)
+ax.set_xticks(minor_ticks, minor=True)
 ax.legend(loc="lower right")
 ax.title.set_text("test")
 plt.show()
