@@ -4,33 +4,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import itertools
-
+import pandas as pd
 
 def read_json(directory, filename, metric='psnr', comparison_metric='bpp'):
     path = os.path.join(directory, filename)
     with open(path) as f:
         data = json.load(f)
-        if "results" in data:
-            results = data["results"]
-            metric=metric
-            comparison_metric=comparison_metric
-            var = {
-                "name": data.get("name"),
-                "xs": results[comparison_metric],
-                "ys": results[metric],
-            }
-            values = np.array(results[metric])
-        else:
-            results = data
-            metric = metric
-            comparison_metric = comparison_metric
-            var = {
-                "name": data.get("name"),
-                "xs": results[comparison_metric],
-                "ys": results[metric],
-            }
-        return(var)
-
+        results = data["results"]
+        metric=metric
+        comparison_metric=comparison_metric
+        var = {
+            "name": data.get("name"),
+            "xs": results[comparison_metric],
+            "ys": results[metric],
+        }
+        values = np.array(results[metric])
+    return(var)
 
 directory = "D:/CompressAI/results/kodak/"
 values = []
@@ -45,8 +34,6 @@ for filename in os.listdir(directory):
             curve_dict_ys = {values['name']: values['ys']}
             dict_ys.update(curve_dict_ys)
 
-
-import pandas as pd
 df1 = pd.DataFrame.from_dict(dict_xs, orient='index')
 df2 = pd.DataFrame.from_dict(dict_ys, orient='index')
 df1 = df1.transpose()
@@ -54,9 +41,6 @@ df2 = df2.transpose()
 df_name = df1.columns
 xs = df1[:].values
 ys = df2[:].values
-print(xs)
-print(ys)
-
 linestyle = "-"
 figsize = (9, 6)
 fig, ax = plt.subplots(figsize=figsize)
